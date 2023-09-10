@@ -1,22 +1,27 @@
-
+import {
+  ItemLi,
+  Name,
+  Number,
+  Btn,
+} from 'components/ContactItem/ContactItem.styled';
 
 
 
 export const Item = (props) => {
     const {name, id, number} = props.contact
     return (
-      <li>
-        <p>{name}</p>
-        <p>{number}</p>
+      <ItemLi>
+        <Name>{name}</Name>
+        <Number>{number}</Number>
 
-        <button
+        <Btn
           type="button"
           onClick={() => {
             props.onDelete(id);
           }}
         >
-          remove
-        </button>
-      </li>
+          Delete
+        </Btn>
+      </ItemLi>
     );
 }

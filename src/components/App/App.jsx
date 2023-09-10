@@ -1,8 +1,10 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
+import shortid from 'shortid';
 import {ContactList} from 'components/ContactList/ContactList'
 import { ContactForm } from "components/ContactForm/ContactForm";
-import shortid from 'shortid'
-import {Filter} from 'components/Filter/Filter'
+import { Filter } from 'components/Filter/Filter'
+import { Section, Title, SecondTitle,  } from 'components/App/App.styled';
+
 export class App extends Component {
   state = {
     contacts: [
@@ -26,8 +28,11 @@ export class App extends Component {
     }));
   };
 
-  addContact = info => {
-    const { name, number } = info;
+  addContact = ({ name, number }) => {
+    const contactExists = this.state.contacts.some(contact => contact.name === name)
+    if (contactExists) {
+      return alert(`${name} is already in contacts.`)
+    }
     const contact = {
       id: shortid.generate(),
       name,
@@ -39,23 +44,24 @@ export class App extends Component {
     };
 
     getVisibleContact = () => {
-        const normalizedFilter = this.state.filter
+        const normalizedFilter = this.state.filter.toLowerCase()
         return this.state.contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter))
     }
 
     render() {
       const visibleContacts = this.getVisibleContact()
     return (
-      <section>
-        <h1>Phonebook</h1>
-        <ContactForm onSubmit={this.addContact} />
-        <h2>Contacts</h2>
+      <Section>
+        <Title>Phonebook</Title>
+        <ContactForm onSubmit={this.addContact} contacts={this.state} />
+        
+        <SecondTitle>Contacts</SecondTitle>
         <Filter value={this.state.filter} onChange={this.filtered} />
         <ContactList
           contacts={visibleContacts}
           onDeleteContact={this.deleteContact}
         />
-      </section>
+      </Section>
     );
   }
 }
