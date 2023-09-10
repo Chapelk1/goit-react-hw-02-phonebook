@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import {
   ItemLi,
   Name,
@@ -24,4 +25,9 @@ export const Item = (props) => {
         </Btn>
       </ItemLi>
     );
+}
+
+Item.propTypes = {
+  contact: PropTypes.object,
+  onDelete: PropTypes.func,
 }

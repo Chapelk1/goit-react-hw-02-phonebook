@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
   Form,
@@ -19,7 +20,6 @@ export class ContactForm extends Component {
       [inputName]: inputValue,
     });
   };
-
 
   handleSubmit = e => {
     e.preventDefault();
@@ -60,4 +60,11 @@ export class ContactForm extends Component {
       </Form>
     );
   }
+}
+
+
+
+ContactForm.propTypes = {
+  onSubmit: PropTypes.func,
+  contacts: PropTypes.object,
 }
